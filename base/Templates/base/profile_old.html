@@ -1,0 +1,40 @@
+{% extends 'main.html'%}
+
+{% block content %}
+
+
+<div class="profile-container">
+
+
+    <div>
+        {%include 'base/topics.html'%}
+    </div>
+    
+    <div>
+        <h1 style="text-align: Center;"> @{{currentuser.username}}'s profile </h1>
+His Rooms :
+<br>
+{%for room in rooms %}
+<br>
+<a href="{%url 'room' room.id%}">{{room}}</a>
+
+{%endfor%}
+<hr>
+<h1>other rooms</h1>
+{%for room in total_rooms %}
+<br>
+<a href="{%url 'room' room.id%}">{{room}}</a>
+
+{%endfor%}
+
+    </div>
+    
+    <div>
+        {%include 'base/activitys.html'%}
+    </div>
+
+</div>
+
+
+
+{%endblock%}

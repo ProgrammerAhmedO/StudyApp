@@ -1,0 +1,35 @@
+
+{% extends 'main.html'%}
+
+{%block content%}
+<br>
+
+
+<style>
+
+.home-container{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+
+
+</style>
+
+<div class="home-container">
+
+
+{%include 'base/topics.html'%}
+        <div>
+            <h1 style="text-align: Center;"> this is home page </h1><br><br>
+            <h5 style="text-align: Center;"> {{room_count}} Room available</h5>
+            {% include 'base/body.html'%}
+        </div>
+
+
+
+{%include 'base/activitys.html'%}
+
+
+
+</div>
+{%endblock%}

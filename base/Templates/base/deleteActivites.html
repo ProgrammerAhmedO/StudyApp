@@ -1,0 +1,11 @@
+{%extends 'main.html'%}
+
+{%block content%}
+
+
+<h1> are you sure you want to delete the [{{activity}}] message ?</h1>
+<form method="post" action="">
+    {%csrf_token%}
+<input type="submit" name="delete" value="delete">  <a href="{{request.META.HTTP_REFERER}}">back </a>
+</form>
+{%endblock%}

@@ -1,0 +1,87 @@
+send you to last page : href="{{request.META.HTTP_REFERER}}"
+
+_____________________________________________________________________
+
+Create/Update/Delete :
+
+
+
+def CreateRoom(request):
+    form = RoomForm()
+    if request.method == 'POST':        
+        Form = RoomForm(request.POST) >> give us form with data Posted
+        if form.is_valid:
+            Form.save()
+
+    context = {'form':form}
+    return render(request, 'base/CreateRoom.html' , context)
+
+
+def UpdateRoom(request,pk):
+    room = Room.objects.get(id=pk)
+    form = RoomForm(instance=room) >>give us form with spicific id data
+    if request.method == 'POST':
+        form = RoomForm(request.POST, instance=room)
+        if form.is_valid :
+            form.save()
+            return redirect('home')
+    context = {'form':form}
+    return render(request, 'base/UpdateRoom.html' , context)
+
+
+def DeleteRoom(request,pk):
+    room = Room.objects.get(id=pk)
+    if request.method == "POST":
+            room.delete() >> you didn't need form to delete
+            return redirect('home')
+    context = {'obj':room}
+    return render(request, 'base/DeleteRoom.html' , context)
+
+_____________________________________________________________________
+
+on filter :
+q = request.GET.get('q') >> get the data as GET from the url by passing information through url data '<a href = "{% url ' Home'%}?q={{topic.name}}">{{topic.name}}</a>' >> this command make variable in url link can be used in the backend
+room = Room.objects.filter(topic__name=q) >> __ for value in related table 'topic'
+
+
+_____________________________________________________________________
+
+time order methods :
+in db : 
+class Meta:
+        ordering = ['-updated','-created']  >> - mean order by new to old
+
+in Backend:
+...ts.filter().order_by('-created')
+
+
+_____________________________________________________________________
+
+
+<style>
+.home-container{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr; >> each fr stand for new row size for page
+}
+
+
+</style>
+
+
+_____________________________________________________________________
+edit spicific item in form:
+
+def CreateRoom(request):
+    Form = RoomForm()
+    if request.method == 'POST':        
+        Form = RoomForm(request.POST)
+        if Form.is_valid:
+            Room=Form.save(commit=False) >>> commit = false >> don't save to db just store the data inside the Room variable
+            Room.Host = request.user   
+            Room.save()
+            return redirect('home')
+
+_____________________________________________________________________
+
+<a href="/">{{topic}} <span>{{topic.room_set.all.count}}</span></a> >> how to count inside the Template
+or >>    <p>{{rooms.count}} Rooms available</p>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  {%load static%}
+    {% include 'head.html'%}
+    {%include 'nav.html'%}
+
+    
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+<body>
+    {% block content %}
+
+    
+
+    {%endblock%}
+    <script src="{% static 'js/script.js'%}"></script>
+</body>
+</html>
